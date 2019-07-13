@@ -15,7 +15,8 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('author_id');
+            $table->unsignedBigInteger('author_id');
+            $table->foreign('author_id')->references('id')->on('users');
             $table->string('title');
             $table->enum('type', ['berita', 'bertutur']);
             $table->string('slug')->unique()->default('Anonym');
@@ -25,9 +26,10 @@ class CreateArticlesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('articles', function(Blueprint $table) {
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('set default');
-        });
+        // Schema::table('articles', function (Blueprint $table) {
+        //     $table->unsignedBigInteger('author_id');
+        //     $table->foreign('author_id')->references('id')->on('users');
+        // });
     }
 
     /**

@@ -15,14 +15,16 @@ class CreateArticlesStatisticTable extends Migration
     {
         Schema::create('articles_statistic', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('article_id');
+            $table->unsignedBigInteger('article_id');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
             $table->string('viewer_ip');
             $table->timestamps();
         });
 
-        Schema::table('articles_statistic', function(Blueprint $table){
-            $table->foreign('article_id')->references('id')->on('articles')->onDelete('casecade');
-        });
+        // Schema::table('articles_statistic', function (Blueprint $table) {
+        //     $table->unsignedBigInteger('article_id');
+        //     $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
+        // });
     }
 
     /**
