@@ -15,18 +15,18 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('author_id');
+            $table->string('author_id');
             $table->string('title');
             $table->enum('type', ['berita', 'bertutur']);
-            $table->string('slug')->unique();
-            $table->string('banner_path');
+            $table->string('slug')->unique()->default('Anonym');
+            $table->string('banner_path')->nullable();
             $table->text('article', 5000);
             $table->integer('status');
             $table->timestamps();
         });
 
         Schema::table('articles', function(Blueprint $table) {
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('set default');
         });
     }
 

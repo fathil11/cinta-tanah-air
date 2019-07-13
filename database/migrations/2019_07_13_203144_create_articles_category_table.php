@@ -15,12 +15,12 @@ class CreateArticlesCategoryTable extends Migration
     {
         Schema::create('articles_category', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('article_id');
+            $table->string('article_id');
             $table->string('category');
             $table->timestamps();
         });
 
-        Schema::table('article_category', function (Blueprint $table){
+        Schema::table('articles_category', function (Blueprint $table){
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('casecade');
         });
     }

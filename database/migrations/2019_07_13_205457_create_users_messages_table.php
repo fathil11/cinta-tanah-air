@@ -13,13 +13,19 @@ class CreateUsersMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_message', function (Blueprint $table) {
+        Schema::create('users_messages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('sender_id');
-            $table->integer('recipient_id');
-            $table->integer('article_id');
+            $table->string('sender_id');
+            $table->string('recipient_id');
+            $table->string('article_id');
             $table->string('message');
             $table->timestamps();
+        });
+
+        Schema::table('users_messages', function (Blueprint $table){
+            $table->foreign('sender_id')->references('id')->on('users')->onDelete('casecade');
+            $table->foreign('recipient_id')->references('id')->on('users')->onDelete('casecade');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('casecade');
         });
     }
 

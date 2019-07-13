@@ -15,8 +15,8 @@ class CreateArticlesStatisticTable extends Migration
     {
         Schema::create('articles_statistic', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('article_id');
-            $table->integer('viewer_ip');
+            $table->string('article_id');
+            $table->string('viewer_ip');
             $table->timestamps();
         });
 
