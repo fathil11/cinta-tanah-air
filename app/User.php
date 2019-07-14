@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Articles as Articles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -36,4 +37,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function articles(){
+        return $this->hasMany('Articles', 'author_id');
+    }
+
+    public function recievieMessages(){
+        return $this->hasMany('UsersMessages', 'recipient_id');
+    }
+
+    public function sendMessages(){
+        return $this->hasMany('UsersMessages', 'sender_id');
+    }
 }

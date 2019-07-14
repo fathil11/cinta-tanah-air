@@ -6,5 +6,33 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    //
+    public function showHome()
+    {
+
+    }
+
+    public function showBerita()
+    {
+
+    }
+
+    public function openBerita($category, $slug)
+    {
+
+    }
+
+    public function showBertutur()
+    {
+
+    }
+
+    public function openBertutur($slug)
+    {
+
+    }
+
+    public function showProfil()
+    {
+
+    }
 }

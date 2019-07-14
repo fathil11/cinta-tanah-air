@@ -12,20 +12,20 @@
 */
 
 // Home
-Route::get('/', 'HomeController@home');
-Route::get('/beranda', 'HomeController@home');
+Route::get('/', 'HomeController@showHome');
+Route::get('/beranda', 'HomeController@showHome');
 
 // Berita
 Route::get('/berita/{category}', 'HomeController@showBerita');
 
 // Detail Berita
-Route::get('/berita/{category}/{slug}', 'HomeController@showBerita');
+Route::get('/berita/{category}/{slug}', 'HomeController@openBerita');
 
 // Bertutur
-Route::get('/bertutur', 'HomeController@showBerita');
+Route::get('/bertutur', 'HomeController@showBertutur');
 
 // Detail Bertutur
-Route::get('/bertutur/{slug}', 'HomeController@showBerita');
+Route::get('/bertutur/{slug}', 'HomeController@openBertutur');
 
 // Profil
 Route::get('/profil', 'HomeController@showProfil');
