@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArticlesStatisticTable extends Migration
+class CreateArticleCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateArticlesStatisticTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles_statistic', function (Blueprint $table) {
+        Schema::create('article_category', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('article_id');
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
-            $table->string('viewer_ip');
+            $table->string('category');
             $table->timestamps();
         });
 
-        // Schema::table('articles_statistic', function (Blueprint $table) {
+        // Schema::table('articles_category', function (Blueprint $table) {
         //     $table->unsignedBigInteger('article_id');
         //     $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
         // });
@@ -34,6 +34,6 @@ class CreateArticlesStatisticTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles_statistic');
+        Schema::dropIfExists('article_category');
     }
 }

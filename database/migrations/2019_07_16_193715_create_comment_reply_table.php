@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArticlesCategoryTable extends Migration
+class CreateCommentReplyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateArticlesCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles_category', function (Blueprint $table) {
+        Schema::create('comment_reply', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('article_id');
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
-            $table->string('category');
+            $table->unsignedBigInteger('comment_id');
+            $table->foreign('comment_id')->references('id')->on('article_comment')->onDelete('cascade');
+            $table->unsignedBigInteger('member_id');
+            $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
+            $table->string('comment', 200);
             $table->timestamps();
         });
-
-        // Schema::table('articles_category', function (Blueprint $table) {
-        //     $table->unsignedBigInteger('article_id');
-        //     $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
-        // });
     }
 
     /**
@@ -34,6 +33,6 @@ class CreateArticlesCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article_category');
+        Schema::dropIfExists('comment_reply');
     }
 }

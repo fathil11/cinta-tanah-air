@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersMessagesTable extends Migration
+class CreateUserMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUsersMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_messages', function (Blueprint $table) {
+        Schema::create('user_messages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('sender_id');
             $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
