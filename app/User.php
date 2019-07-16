@@ -2,7 +2,9 @@
 
 namespace App;
 
-use App\Articles as Articles;
+use App\Article as Article;
+use App\UserMessage as UserMessage;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,14 +41,14 @@ class User extends Authenticatable
     ];
 
     public function articles(){
-        return $this->hasMany('Articles', 'author_id');
+        return $this->hasMany('Article', 'author_id');
     }
 
     public function recievieMessages(){
-        return $this->hasMany('UsersMessages', 'recipient_id');
+        return $this->hasMany('UserMessage', 'recipient_id');
     }
 
     public function sendMessages(){
-        return $this->hasMany('UsersMessages', 'sender_id');
+        return $this->hasMany('UserMessage', 'sender_id');
     }
 }

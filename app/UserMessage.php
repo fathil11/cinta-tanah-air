@@ -3,11 +3,12 @@
 namespace App;
 
 use App\User as User;
+
 use Illuminate\Database\Eloquent\Model;
 
-class UsersMessages extends Model
+class UserMessage extends Model
 {
-    protected $table = "users_messages";
+    protected $table = "user_messages";
 
     public function userSender(){
         return $this->belongsTo('User', 'sender_id');
