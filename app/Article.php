@@ -25,4 +25,9 @@ class Article extends Model
     {
         $this->hasMany('ArticleCategory', 'article_id');
     }
+
+    public function comment()
+    {
+        $this->hasMany('ArticleComment', 'comment_id');
+    }
 }
