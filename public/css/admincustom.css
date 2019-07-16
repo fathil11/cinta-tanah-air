@@ -1,0 +1,11 @@
+.bg-gradient-primary {
+    background: linear-gradient(87deg, #cf4027 0, #e26666 100%) !important;
+}
+
+.bg-gradient-default {
+    background: linear-gradient(87deg, #fabc74 0, #fabc74 100%) !important;
+}
+
+.navbar-vertical.navbar-expand-md .navbar-nav .nav-link.active:before {
+    border-left: 2px solid #cf4027;
+}
