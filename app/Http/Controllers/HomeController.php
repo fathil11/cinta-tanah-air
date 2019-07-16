@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     public function showHome()
     {
-        return view('layouts.dashboard');
+        return view('dashboard.home');
     }
 
     public function showBerita()
