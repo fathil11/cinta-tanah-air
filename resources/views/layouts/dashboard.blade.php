@@ -35,7 +35,8 @@
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="index.html"> <img src="img/logo.png" alt="logo"> </a>
+                        <a class="navbar-brand" href="{{ url('#') }}"> <img src="{{ url('img/logo.png') }}" alt="logo">
+                        </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +47,7 @@
                             id="navbarSupportedContent">
                             <ul class="navbar-nav">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="index.html">Beranda</a>
+                                    <a class="nav-link" href="{{ url('/') }}">Beranda</a>
                                 </li>
 
                                 <li class="nav-item dropdown">
@@ -55,18 +56,19 @@
                                         Berita
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="single-blog.html">Budaya</a>
-                                        <a class="dropdown-item" href="elements.html">Pemberdayaan</a>
-                                        <a class="dropdown-item" href="elements.html">Pendidikan</a>
-                                        <a class="dropdown-item" href="elements.html">Sosial</a>
-                                        <a class="dropdown-item" href="elements.html">Hukum</a>
+                                        <a class="dropdown-item" href="{{ url('/berita/budaya') }}">Budaya</a>
+                                        <a class="dropdown-item"
+                                            href="{{ url('/berita/pemberdayaan') }}">Pemberdayaan</a>
+                                        <a class="dropdown-item" href="{{ url('/berita/pendidikan') }}">Pendidikan</a>
+                                        <a class="dropdown-item" href="{{ url('/berita/sosial') }}">Sosial</a>
+                                        <a class="dropdown-item" href="{{ url('/berita/hukum') }}">Hukum</a>
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Bertutur</a>
+                                    <a class="nav-link" href="{{ url('/bertutur') }}">Bertutur</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Profil</a>
+                                    <a class="nav-link" href="{{ url('/profil') }}">Profil</a>
                                 </li>
                             </ul>
                         </div>

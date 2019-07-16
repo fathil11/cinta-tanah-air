@@ -13,7 +13,13 @@ class HomeController extends Controller
 
     public function showBerita()
     {
+        $category = "terkini";
+        return view('dashboard.news', ['category' => $category]);
+    }
 
+    public function showBeritaCategory($category)
+    {
+        return view('dashboard.news', ['category' => $category]);
     }
 
     public function openBerita($category, $slug)

@@ -15,11 +15,14 @@
 Route::get('/', 'HomeController@showHome');
 Route::get('/beranda', 'HomeController@showHome');
 
-// Berita
-Route::get('/berita/{category}', 'HomeController@showBerita');
+// Berita Ketegori
+Route::get('/berita', 'HomeController@showBerita');
+
+// Berita Ketegori
+Route::get('/berita/{category}', 'HomeController@showBeritaCategory');
 
 // Detail Berita
-Route::get('/berita/{category}/{slug}', 'HomeController@openBerita');
+Route::get('/berita/{slug}', 'HomeController@openBerita');
 
 // Bertutur
 Route::get('/bertutur', 'HomeController@showBertutur');

@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Home')
+@section('title', 'Aku Cinta Indonesia')
 @section('content')
 <!-- banner part start-->
 <section class="banner_part">
@@ -10,13 +10,13 @@
                     <div class="banner_text_iner text-center">
                         <h2>Aku <span>Cinta</span> </h2>
                         <h3>Indonesia</h3>
-                        <a href="#" class="btn_1">Lihat Berita <i class="ti-angle-right"></i> </a>
+                        <a href="{{ url('/berita') }}" class="btn_1">Lihat Berita <i class="ti-angle-right"></i> </a>
                     </div>
                 </div>
             </div>
             <div class="col-xl-6 col-md-6">
                 <div class="banner_bg">
-                    <img src="img/banner_img.png" alt="banner">
+                    <img src="{{ url('img/banner_img.png') }}" alt="banner">
                 </div>
             </div>
         </div>
