@@ -124,20 +124,42 @@
                             <i class="ni ni-tv-2 text-primary"></i> Statistik Web
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/berita') }}">
                             <i class="ni ni-folder-17 text-yellow"></i> Manajemen Konten
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/') }}">
                             <i class="ni ni-single-02 text-danger"></i> Penulis
                         </a>
                     </li>
                 </ul>
-                <!-- Divider -->
-                <hr class="my-3">
 
+                <hr class="my-3">
+                <h6 class="navbar-heading text-muted">Manajemen Konten</h6>
+                <ul class="navbar-nav mb-md-3">
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
+                            <i class="ni ni-spaceship"></i> Buat Konten
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
+                            <i class="ni ni-palette text-danger"></i> Tinjau Konten
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
+                            <i class="ni ni-ui-04"></i> Draft Konten
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
