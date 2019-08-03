@@ -51,8 +51,11 @@ Route::group(['prefix' => 'author/berita', 'middleware' => 'auth'], function () 
 });
 
 // Admin
+    Route::get('/admin/welcome', 'AdminController@showWelcome');
     Route::get('/admin', 'AdminController@showWelcome');
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    Route::get('/admin/statistik', 'AdminController@showStatistic');
+    Route::get('/admin/manajemen-konten', 'AdminController@showStatistic');
+    Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // Admin Berita
 
     Route::group(['prefix' => 'berita'], function () {
