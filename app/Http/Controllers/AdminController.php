@@ -10,4 +10,14 @@ class AdminController extends Controller
     {
         return view('admin.welcome');
     }
+
+    public function showStatistic()
+    {
+        return view('admin.statistik');
+    }
+
+    public function showBuatArtikel()
+    {
+        return view('admin.buatArtikel');
+    }
 }

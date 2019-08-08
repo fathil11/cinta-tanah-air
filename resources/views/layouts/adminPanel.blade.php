@@ -61,24 +61,12 @@
                         <div class=" dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Welcome!</h6>
                         </div>
-                        <a href="../examples/profile.html" class="dropdown-item">
+                        <a href="{{ url('/admin/profilku') }}" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
                             <span>My profile</span>
                         </a>
-                        <a href="../examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-settings-gear-65"></i>
-                            <span>Settings</span>
-                        </a>
-                        <a href="../examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-calendar-grid-58"></i>
-                            <span>Activity</span>
-                        </a>
-                        <a href="../examples/profile.html" class="dropdown-item">
-                            <i class="ni ni-support-16"></i>
-                            <span>Support</span>
-                        </a>
                         <div class="dropdown-divider"></div>
-                        <a href="#!" class="dropdown-item">
+                        <a href="{{ url('/admin/logout') }}" class="dropdown-item">
                             <i class="ni ni-user-run"></i>
                             <span>Logout</span>
                         </a>
@@ -92,7 +80,7 @@
                     <div class="row">
                         <div class="col-6 collapse-brand">
                             <a href="../index.html">
-                                <img src="{{ asset('img/brand/blue.png') }}">
+                                <img src="{{ asset('img/user_picture/team-4-800x800.jpg') }}">
                             </a>
                         </div>
                         <div class="col-6 collapse-close">
@@ -118,9 +106,13 @@
                     </div>
                 </form>
                 <!-- Navigation -->
+
+                <hr class="my-3">
+
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/admin/statistik') }}">
+                        <a class="nav-link @if(Request::is('admin/statistik')) {{'active'}} @endif"
+                            href="{{ url('/admin/statistik') }}">
                             <i class="ni ni-tv-2 text-primary"></i> Statistik Web
                         </a>
                     </li>
@@ -129,36 +121,40 @@
 
                 <hr class="my-3">
 
-                <h6 class="navbar-heading text-muted">Manajemen Konten</h6>
+                <h6 class="navbar-heading text-muted">Manajemen Artikel</h6>
+
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link"
-                            href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-                            <i class="ni ni-spaceship text-success"></i> Buat Konten
+                        <a class="nav-link @if(Request::is('admin/buat-artikel')) {{'active'}} @endif"
+                            href="{{ url('/admin/buat-artikel') }}">
+                            <i class="ni ni-spaceship text-success"></i> Buat Artikel
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"
-                            href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html">
-                            <i class="ni ni-palette text-info"></i> Tinjau Konten
+                        <a class="nav-link @if(Request::is('admin/tinjau-artikel')) {{'active'}} @endif"
+                            href="{{ url('/admin/tinjau-artikel') }}">
+                            <i class="ni ni-palette text-info"></i> Tinjau Artikel
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"
-                            href="https://demos.creative-tim.com/argon-dashboard/docs/components/alerts.html">
-                            <i class="ni ni-ui-04 text-warning"></i> Draft Konten
+                        <a class="nav-link @if(Request::is('admin/draft-artikel')) {{'active'}} @endif"
+                            href="{{ url('/admin/draft-artikel') }}">
+                            <i class="ni ni-ui-04 text-warning"></i> Draft Artikel
                         </a>
                     </li>
                 </ul>
 
                 <hr class="my-3">
+
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/') }}">
+                        <a class="nav-link @if(Request::is('admin/manajemen-penulis')) {{'active'}} @endif"
+                            href="{{ url('/admin/manajemen-penulis') }}">
                             <i class="ni ni-single-02 text-danger"></i> Manajemen Penulis
                         </a>
                     </li>
                 </ul>
+
             </div>
         </div>
     </nav>
@@ -200,24 +196,12 @@
                             <div class=" dropdown-header noti-title">
                                 <h6 class="text-overflow m-0">Welcome!</h6>
                             </div>
-                            <a href="../examples/profile.html" class="dropdown-item">
+                            <a href="{{ url('/admin/profil') }}" class="dropdown-item">
                                 <i class="ni ni-single-02"></i>
-                                <span>My profile</span>
-                            </a>
-                            <a href="../examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-settings-gear-65"></i>
-                                <span>Settings</span>
-                            </a>
-                            <a href="../examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-calendar-grid-58"></i>
-                                <span>Activity</span>
-                            </a>
-                            <a href="../examples/profile.html" class="dropdown-item">
-                                <i class="ni ni-support-16"></i>
-                                <span>Support</span>
+                                <span>Profil</span>
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a href="{{ url('/logout') }}" class="dropdown-item">
+                            <a href="{{ url('/admin/logout') }}" class="dropdown-item">
                                 <i class="ni ni-user-run"></i>
                                 <span>Logout</span>
                             </a>
@@ -267,6 +251,7 @@
     <script src="{{ asset('vendor/chart.js/dist/Chart.extension.js') }}"></script>
     <!-- Argon JS -->
     <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
+    <script src="{{ asset('js/customAdmin.js') }}"></script>
 </body>
 
 </html>

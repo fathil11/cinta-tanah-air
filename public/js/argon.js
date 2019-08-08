@@ -916,7 +916,7 @@ var OrdersChart = (function() {
 	// Variables
 	//
 
-	var $chart = $('#chart-orders');
+	var $chart = $('#chart-peserta');
 	var $ordersSelect = $('[name="ordersSelect"]');
 
 
@@ -962,7 +962,7 @@ var OrdersChart = (function() {
 				}
 			},
 			data: {
-				labels: ['Logika', 'Pemimpin', 'Pemerintah', 'Penghibur', 'Penasihat', 'Petualang'],
+				labels: ['Pendebat', 'Penasihat', 'Penghibur', 'Pemikir', 'Petualang', 'Pendiam'],
 				datasets: [{
 					label: 'Sales',
 					data: [25, 20, 30, 22, 17, 29]
@@ -992,30 +992,30 @@ var OrdersChart = (function() {
 // Sales chart
 //
 
-var SalesChart = (function() {
+var ArticleStatistic = (function() {
 
 	// Variables
 
-	var $chart = $('#chart-sales');
+	var $chart = $('#articles-chart');
 
 
 	// Methods
 
 	function init($chart) {
 
-		var salesChart = new Chart($chart, {
+		var articleChart = new Chart($chart, {
 			type: 'line',
 			options: {
 				scales: {
 					yAxes: [{
 						gridLines: {
-							color: Charts.colors.gray[900],
-							zeroLineColor: Charts.colors.gray[900]
+							color: Charts.colors.gray[100],
+							zeroLineColor: Charts.colors.theme['secondary']
 						},
 						ticks: {
 							callback: function(value) {
-								if (!(value % 10)) {
-									return '$' + value + 'k';
+								if (!(value % 2)) {
+									return value;
 								}
 							}
 						}
@@ -1032,24 +1032,24 @@ var SalesChart = (function() {
 								content += '<span class="popover-body-label mr-auto">' + label + '</span>';
 							}
 
-							content += '<span class="popover-body-value">$' + yLabel + 'k</span>';
+							content += '<span class="popover-body-value">' + yLabel + ' Artikel</span>';
 							return content;
 						}
 					}
 				}
 			},
 			data: {
-				labels: ['Tes', 'Jun', 'Tes', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+				labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'],
 				datasets: [{
 					label: 'Performance',
-					data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
+					data: [2, 1, 6, 5, 2, 7, 8]
 				}]
 			}
 		});
 
 		// Save to jQuery object
 
-		$chart.data('chart', salesChart);
+		$chart.data('chart', articleChart);
 
 	};
 
@@ -1060,4 +1060,5 @@ var SalesChart = (function() {
 		init($chart);
 	}
 
+    
 })();

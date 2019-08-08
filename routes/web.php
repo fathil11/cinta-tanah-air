@@ -54,7 +54,7 @@ Route::group(['prefix' => 'author/berita', 'middleware' => 'auth'], function () 
     Route::get('/admin/welcome', 'AdminController@showWelcome');
     Route::get('/admin', 'AdminController@showWelcome');
     Route::get('/admin/statistik', 'AdminController@showStatistic');
-    Route::get('/admin/manajemen-konten', 'AdminController@showStatistic');
+    Route::get('/admin/buat-artikel', 'AdminController@showBuatArtikel');
     Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // Admin Berita
 

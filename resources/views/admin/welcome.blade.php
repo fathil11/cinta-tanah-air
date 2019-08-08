@@ -16,7 +16,7 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-lg-4">
-        <div class="card bg-gradient-default text-center p-5">
+        <div class="card bg-gradient-defaultcustom text-center p-5">
             <a href="{{ url('/admin/statistik') }}" class="btn btn-white btn-icon mb-3 mb-sm-0">
                 <span class="btn-inner--icon"><i class="ni ni-collection"></i></span>
                 <span class="btn-inner--text">Statistik Web</span>
