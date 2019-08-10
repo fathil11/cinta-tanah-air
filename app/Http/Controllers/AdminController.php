@@ -41,4 +41,7 @@ class AdminController extends Controller
     {
         return view('admin.buatUser');
     }
+
+    public function buatUser(Request $request)
+    { }
 }

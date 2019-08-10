@@ -11,95 +11,80 @@
 |
 */
 
-// Home
-Route::get('/', 'HomeController@showHome');
+/// Public Route
+Route::group(['prefix' => '/'], function () {
+    /// Show Home
+    Route::get('', 'HomeController@showHome');
 
-// Berita All
-Route::get('berita', 'HomeController@showBerita');
+    // Show Berita All
+    Route::get('berita', 'HomeController@showBerita');
 
-// Berita Ketegori
-Route::get('berita/{category}', 'HomeController@showBeritaCategory');
+    // Show Berita Ketegori
+    Route::get('berita/{category}', 'HomeController@showBeritaCategory');
 
-// Bertutur
-Route::get('/bertutur', 'HomeController@showBertutur');
+    // Show Bertutur
+    Route::get('bertutur', 'HomeController@showBertutur');
 
-// Open Artikel
-Route::get('lihat-artikel/{slug}', 'HomeController@openArticle');
+    // Show Open Artikel
+    Route::get('lihat-artikel/{slug}', 'HomeController@openArticle');
 
-
-// Profil
-Route::get('/profil', 'HomeController@showProfil');
-
-// Author
-Route::group(['prefix' => 'author/berita', 'middleware' => 'auth'], function () {
-    // Show
-    Route::get('/', 'AuthorController@showBerita');
-
-    // Create
-    Route::get('/tambah', 'AuthorController@createBerita');
-    Route::put('/tambah', 'AuthorController@storeBerita');
-
-    // Edit
-    Route::get('/edit/{id}', 'AuthorController@editBerita');
-    Route::put('/edit/{id}', 'AuthorController@updateBerita');
-
-    // Delete
-    Route::get('/delete/{id}', 'AuthorController@deleteBerita');
+    // Show Profil
+    Route::get('profil', 'HomeController@showProfil');
 });
 
-// Admin
-Route::get('/admin/welcome', 'AdminController@showWelcome');
-Route::get('/admin', 'AdminController@showWelcome');
-Route::get('/admin/statistik', 'AdminController@showStatistic');
-Route::get('/admin/buat-artikel', 'AdminController@showBuatArtikel');
-Route::get('/admin/kelola-artikel', 'AdminController@showKelolaArtikel');
-Route::get('/admin/draft-artikel', 'AdminController@showDraftArtikel');
-Route::get('/admin/kelola-user', 'AdminController@showKelolaUser');
-Route::get('/admin/buat-user', 'AdminController@showBuatUser');
-Route::get('/tesdb', 'AdminController@tesdb');
+/// Admin Route
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+    // Show Welcome
+    Route::get('', 'AdminController@showWelcome');
+    Route::get('welcome', 'AdminController@showWelcome');
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
-    // Admin Berita
+    // Show Statistik
+    Route::get('statistik', 'AdminController@showStatistic');
 
-    Route::group(['prefix' => 'berita'], function () {
-        // Show Berita
-        Route::get('/', 'AdminController@showBerita');
-        Route::get('/draft', 'AdminController@showDraftBerita');
+    // Show Buat Artikel
+    Route::get('buat-artikel', 'AdminController@showBuatArtikel');
 
-        // Create
-        Route::get('/tambah', 'AdminController@createBerita');
-        Route::put('/tambah', 'AdminController@storeBerita');
+    // Show Kelola Artikel
+    Route::get('kelola-artikel', 'AdminController@showKelolaArtikel');
 
-        // Article Traffic Controller
-        Route::get('/posting/{id}', 'AdminController@postBerita');
-        Route::get('/tarik/{id}', 'AdminController@unpostBerita');
+    // Show Draft Artikel
+    Route::get('draft-artikel', 'AdminController@showDraftArtikel');
 
-        // Edit
-        Route::get('/edit/{id}', 'AdminController@editBerita');
-        Route::put('/edit/{id}', 'AdminController@updateBerita');
+    // Show Kelola User
+    Route::get('kelola-user', 'AdminController@showKelolaUser');
 
-        // Delete
-        Route::get('/delete/{id}', 'AdminController@deleteBerita');
-    });
+    // Show Buat User
+    Route::get('buat-user', 'AdminController@showBuatUser');
 
-    // Admin Author
-    Route::group(['prefix' => 'author'], function () {
-        // Show
-        Route::get('/', 'AdminController@showAuthor');
+    // Buat User
+    Route::put('buat-user', 'AdminController@buatUser');
+});
 
-        // Create
-        Route::get('/tambah', 'AdminController@createAuthor');
-        Route::put('/tambah', 'AdminController@storeAuthor');
+/// Author Route
+Route::group(['prefix' => 'author', 'middleware' => 'author'], function () {
+    // Show Welcome
+    Route::get('', 'AuthorController@showWelcome');
+    Route::get('welcome', 'AuthorController@showWelcome');
 
-        // Edit
-        Route::get('/edit/{id}', 'AdminController@editAuthor');
-        Route::put('/edit/{id}', 'AdminController@updateAuthor');
+    // Show Profil
+    Route::get('profil', 'AuthorController@showProfil');
 
-        // Delete
-        Route::get('/delete/{id}', 'AdminController@deleteAuthor');
-    });
+    // Show Buat Artikel
+    Route::get('buat-artikel', 'AuthorController@showBuatArtikel');
+
+    // Show Kelola Artikel
+    Route::get('kelola-artikel', 'AuthorController@showKelolaArtikel');
 });
 
 
+/// Login Route
+Route::get('login', function () {
+    return view('home.login');
+});
+
+/// Logout Route
+Route::get('logout', 'HomeController@logout');
+
+Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

@@ -36,24 +36,12 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!-- Brand -->
-            <a class="navbar-brand pt-0" href="{{ url('/admin') }}">
+            <a class="navbar-brand pt-0" href="{{ url('/author') }}">
                 <img src="{{ asset('img/logo.png') }}" class="navbar-brand-img" alt="...">
             </a>
             <!-- User -->
             <ul class="nav align-items-center d-md-none">
-                <li class="nav-item dropdown">
-                    <a class="nav-link nav-link-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <i class="ni ni-bell-55"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right"
-                        aria-labelledby="navbar-default_dropdown_1">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
+
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
@@ -67,7 +55,7 @@
                         <div class=" dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Welcome!</h6>
                         </div>
-                        <a href="{{ url('admin/profil') }}" class="dropdown-item">
+                        <a href="{{ url('author/profil') }}" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
                             <span>My profile</span>
                         </a>
@@ -115,60 +103,19 @@
 
                 <hr class="my-3">
 
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link @if(Request::is('admin/statistik')) {{'active'}} @endif"
-                            href="{{ url('/admin/statistik') }}">
-                            <i class="ni ni-tv-2 text-primary"></i> Statistik Web
-                        </a>
-                    </li>
-
-                </ul>
-
-                <hr class="my-3">
-
                 <h6 class="navbar-heading text-muted">Manajemen Artikel</h6>
 
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
-                        <a class="nav-link @if(Request::is('admin/buat-artikel')) {{'active'}} @endif"
-                            href="{{ url('admin/buat-artikel') }}">
+                        <a class="nav-link @if(Request::is('author/buat-artikel')) {{'active'}} @endif"
+                            href="{{ url('author/buat-artikel') }}">
                             <i class="ni ni-ruler-pencil text-success"></i> Buat Artikel
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if(Request::is('admin/kelola-artikel')) {{'active'}} @endif"
-                            href="{{ url('admin/kelola-artikel') }}">
+                        <a class="nav-link @if(Request::is('author/kelola-artikel')) {{'active'}} @endif"
+                            href="{{ url('author/kelola-artikel') }}">
                             <i class="ni ni-single-copy-04 text-info"></i> Kelola Artikel
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(Request::is('admin/draft-artikel')) {{'active'}} @endif"
-                            href="{{ url('admin/draft-artikel') }}">
-                            <i class="ni ni-bullet-list-67 text-warning"></i> Draft Artikel
-                            <span class="badge badge-pill badge-warning">2</span>
-                        </a>
-                    </li>
-                </ul>
-
-                <hr class="my-3">
-
-                <h6 class="navbar-heading text-muted">Manajemen User</h6>
-
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link @if(Request::is('admin/kelola-user')) {{'active'}} @endif"
-                            href="{{ url('/admin/kelola-user') }}">
-                            <i class="fas fa-user-friends text-danger"></i> Kelola User
-                        </a>
-                    </li>
-                </ul>
-
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link @if(Request::is('admin/buat-user')) {{'active'}} @endif"
-                            href="{{ url('/admin/buat-user') }}">
-                            <i class="ni ni-single-02 text-primary"></i> Buat User
                         </a>
                     </li>
                 </ul>
@@ -205,7 +152,8 @@
                                     <img alt="Image placeholder" src="{{ asset('img/user_picture/default_user.jpg') }}">
                                 </span>
                                 <div class="media-body ml-2 d-none d-lg-block">
-                                    <span class="mb-0 text-sm  font-weight-bold">{{ Auth::user()->name }} (Admin)</span>
+                                    <span class="mb-0 text-sm  font-weight-bold">{{ Auth::user()->name }}
+                                        (Author)</span>
                                 </div>
                             </div>
                         </a>
@@ -213,7 +161,7 @@
                             <div class=" dropdown-header noti-title">
                                 <h6 class="text-overflow m-0">Welcome!</h6>
                             </div>
-                            <a href="{{ url('admin/profil') }}" class="dropdown-item">
+                            <a href="{{ url('author/profil') }}" class="dropdown-item">
                                 <i class="ni ni-single-02"></i>
                                 <span>Profil</span>
                             </a>

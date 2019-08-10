@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('password');
+            $table->string('moto')->default('...');
+            $table->string('profile_picture')->default('default_user.jpg');
             $table->integer('role')->default(2);
             $table->rememberToken()->nullable();
             $table->timestamps();

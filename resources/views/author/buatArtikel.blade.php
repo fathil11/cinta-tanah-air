@@ -1,5 +1,5 @@
-@extends('layouts.adminPanel')
-@section('title', 'Buat Artikel')
+@extends('layouts.authorPanel')
+@section('title', 'Author Panel')
 @section('header')
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
     <div class="container-fluid">

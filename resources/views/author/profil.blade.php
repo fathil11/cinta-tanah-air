@@ -1,5 +1,5 @@
-@extends('layouts.adminPanel')
-@section('title', 'Buat User')
+@extends('layouts.authorPanel')
+@section('title', 'Author Panel')
 @section('header')
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
@@ -13,7 +13,7 @@
 <div class="row">
     <div class="col">
         <div class="card shadow cardcustom">
-            <form action="{{ url('admin/buat-user') }}" method="post">
+            <form action="{{ url('testing') }}" method="post">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
                 <div class="container-fluid">
@@ -42,24 +42,12 @@
                     </div>
                     <br>
 
-                    {{-- Input Moto User --}}
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <b>Moto</b>
-                                <input type="text" class="form-control form-control-alternative" name="moto"
-                                    placeholder="Moto user ...">
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-
                     {{-- Input Password User --}}
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">
                                 <b>Password</b>
-                                <input type="password" class="form-control form-control-alternative" name="password"
+                                <input type="password" class="form-control form-control-alternative" name="email"
                                     placeholder="Password user ..." required>
                             </div>
                         </div>
@@ -71,8 +59,8 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <b>Ulangi Password</b>
-                                <input type="password" class="form-control form-control-alternative"
-                                    name="repeat_password" placeholder="Ulangi password user ..." required>
+                                <input type="password" class="form-control form-control-alternative" name="email"
+                                    placeholder="Ulangi password user ..." required>
                             </div>
                         </div>
                     </div>
@@ -84,13 +72,11 @@
                             <div class="form-group">
                                 <b>Jenis User</b>
                                 <div class="custom-control custom-radio mb-3">
-                                    <input name="jenis_user" class="custom-control-input" id="admin" type="radio"
-                                        value="admin">
+                                    <input name="jenis_user" class="custom-control-input" id="admin" type="radio">
                                     <label class="custom-control-label" for="admin">Admin</label>
                                 </div>
                                 <div class="custom-control custom-radio mb-3">
-                                    <input name="jenis_user" class="custom-control-input" id="penulis" type="radio"
-                                        value="author">
+                                    <input name="jenis_user" class="custom-control-input" id="penulis" type="radio">
                                     <label class="custom-control-label" for="penulis">Penulis</label>
                                 </div>
                             </div>
