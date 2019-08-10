@@ -11,6 +11,17 @@
 
 @section('content')
 <div class="row">
+    @if (Session::has('status'))
+    <div class="col-md-12">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <span class="alert-inner--icon"><i class="ni ni-bell-55"></i></span>
+            <span class="alert-inner--text"><strong> Maaf ! </strong> {{ Session::get('status') }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    </div>
+    @endif
     <div class="col">
         <div class="card shadow cardcustom">
             <form action="{{ url('admin/buat-user') }}" method="post">
@@ -18,12 +29,15 @@
                 {{ method_field('PUT') }}
                 <div class="container-fluid">
                     <br>
+                    <div class="col-md-12">
+
+                    </div>
                     {{-- Input Nama User --}}
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">
                                 <b>Nama</b>
-                                <input type="text" class="form-control form-control-alternative" name="nama"
+                                <input type="text" class="form-control form-control-alternative" name="name"
                                     placeholder="Nama user ..." required>
                             </div>
                         </div>
@@ -72,7 +86,7 @@
                             <div class="form-group">
                                 <b>Ulangi Password</b>
                                 <input type="password" class="form-control form-control-alternative"
-                                    name="repeat_password" placeholder="Ulangi password user ..." required>
+                                    name="password_confirmation" placeholder="Ulangi password user ..." required>
                             </div>
                         </div>
                     </div>
@@ -84,12 +98,12 @@
                             <div class="form-group">
                                 <b>Jenis User</b>
                                 <div class="custom-control custom-radio mb-3">
-                                    <input name="jenis_user" class="custom-control-input" id="admin" type="radio"
+                                    <input name="role" class="custom-control-input" id="admin" type="radio"
                                         value="admin">
                                     <label class="custom-control-label" for="admin">Admin</label>
                                 </div>
                                 <div class="custom-control custom-radio mb-3">
-                                    <input name="jenis_user" class="custom-control-input" id="penulis" type="radio"
+                                    <input name="role" class="custom-control-input" id="penulis" type="radio"
                                         value="author">
                                     <label class="custom-control-label" for="penulis">Penulis</label>
                                 </div>

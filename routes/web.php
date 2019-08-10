@@ -53,6 +53,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     // Show Kelola User
     Route::get('kelola-user', 'AdminController@showKelolaUser');
 
+    // Delete User
+    Route::get('delete-user/{id}', 'AdminController@deleteUser');
+
     // Show Buat User
     Route::get('buat-user', 'AdminController@showBuatUser');
 
@@ -76,6 +79,7 @@ Route::group(['prefix' => 'author', 'middleware' => 'author'], function () {
     Route::get('kelola-artikel', 'AuthorController@showKelolaArtikel');
 });
 
+Auth::routes();
 
 /// Login Route
 Route::get('login', function () {
@@ -85,6 +89,5 @@ Route::get('login', function () {
 /// Logout Route
 Route::get('logout', 'HomeController@logout');
 
-Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

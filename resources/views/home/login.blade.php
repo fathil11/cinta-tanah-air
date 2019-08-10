@@ -27,6 +27,7 @@
 </head>
 
 <body class="bg-dark">
+
     <div class="main-content">
         <!-- Header -->
         <div class="header bg-gradient-primary py-7 py-lg-5">
@@ -91,6 +92,22 @@
                 </div>
             </div>
         </div>
+        @error('email')
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <span class="alert-inner--icon"><i class="ni ni-bell-55"></i></span>
+                        <span class="alert-inner--text"><strong> Maaf ! </strong> Email atau Password tidak
+                            sesuai.</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @enderror
     </div>
     <!-- Footer -->
     <footer class="py-5">

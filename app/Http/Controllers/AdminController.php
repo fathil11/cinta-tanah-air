@@ -34,7 +34,16 @@ class AdminController extends Controller
 
     public function showKelolaUser()
     {
-        return view('admin.kelolaUser');
+        $users = User::all();
+        return view('admin.kelolaUser', ['users' => $users]);
+    }
+
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
+        if ($user->delete()) {
+            return redirect(url('admin/kelola-user'));
+        }
     }
 
     public function showBuatUser()
@@ -43,5 +52,37 @@ class AdminController extends Controller
     }
 
     public function buatUser(Request $request)
-    { }
+    {
+        $check_email = User::where('email', $request->email)->first();
+        // Check Email Exist
+        if ($check_email) {
+            $request->session()->flash('status', 'Email sudah pernah terdaftar');
+            return redirect(url('admin/buat-user'));
+        } else {
+            if (strlen($request->password) < 8) {
+                $request->session()->flash('status', 'Password minimal memiliki 8 karakter');
+                return redirect(url('admin/buat-user'));
+            } else {
+                if ($request->password != $request->password_confirmation) {
+                    $request->session()->flash('status', 'Pengulangan password tidak sesuai');
+                    return redirect(url('admin/buat-user'));
+                } else {
+                    $user = new User();
+                    $user->name = $request->name;
+                    $user->email = $request->email;
+                    $user->password = bcrypt($request->password);
+                    $user->moto = $request->moto;
+                    if ($request->role == 'admin') {
+                        $user->role = 1;
+                    } elseif ($request->role == 'author') {
+                        $user->role = 2;
+                    }
+                    if ($user->save()) {
+                        $request->session()->flash('status', 'Berhasil mendaftarkan user');
+                        return redirect(url('admin/kelola-user'));
+                    }
+                }
+            }
+        }
+    }
 }
