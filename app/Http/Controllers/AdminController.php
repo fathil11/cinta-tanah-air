@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -19,5 +20,25 @@ class AdminController extends Controller
     public function showBuatArtikel()
     {
         return view('admin.buatArtikel');
+    }
+
+    public function showKelolaArtikel()
+    {
+        return view('admin.kelolaArtikel');
+    }
+
+    public function showDraftArtikel()
+    {
+        return view('admin.draftArtikel');
+    }
+
+    public function showKelolaUser()
+    {
+        return view('admin.kelolaUser');
+    }
+
+    public function showBuatUser()
+    {
+        return view('admin.buatUser');
     }
 }

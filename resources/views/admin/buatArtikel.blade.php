@@ -13,22 +13,37 @@
 <div class="row">
     <div class="col">
         <div class="card shadow cardcustom">
-            <form action="{{ url('admin-edit-peserta') }}" method="post">
+            <form action="{{ url('testing') }}" method="post">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
-                <div class=" container-fluid">
+                <div class="container-fluid">
                     <br>
-
+                    {{-- Input Judul Artikel --}}
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-10">
                             <div class="form-group">
                                 <b>Judul Artikel</b>
-                                <input type="text" class="form-control form-control-alternative" name="judul"
-                                    placeholder="Judul berita ...">
+                                <input type="text" class="form-control form-control-alternative custom-input-judul"
+                                    name="judul" placeholder="Judul berita ...">
                             </div>
                         </div>
                     </div>
                     <br>
+
+                    {{-- Input Gambar Artikel --}}
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <b>Gambar Artikel</b>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFileLang" lang="en">
+                                <label class="custom-file-label" for="customFileLang">Pilih gambar ...</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+
+                    {{-- Input Jenis Artikel --}}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -47,6 +62,8 @@
                         </div>
                     </div>
                     <br>
+
+                    {{-- Input Kategori Berita --}}
                     <div id="catber">
                         <div class="row">
                             <div class="col-md-6">
@@ -77,14 +94,17 @@
                         </div>
                         <br>
                     </div>
+
+                    {{-- Input WYSIWYG --}}
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <b>Tulis Artikel</b>
-                                <textarea class="form-control" rows="5" name="alasan_masuk"></textarea>
-                            </div>
+                        <div class="col-md-12">
+                            <b>Tulis Artikel</b>
+                            <textarea id="editor" name="editor" placeholder=""></textarea>
                         </div>
                     </div>
+                    <br>
+
+                    {{-- Tombol Posting --}}
                     <div class="row">
                         <div class="col-md-4">
                             <button type="submit" class="btn btn-primary">Posting</button>

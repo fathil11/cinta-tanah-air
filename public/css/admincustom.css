@@ -10,9 +10,9 @@
     border-left: 2px solid #cf4027;
 }
 
-.text-light {
+/* .text-light {
     color: #f14040 !important;
-}
+} */
 
 .bg-secondaryC {
     background-color: #cf4027;
@@ -20,4 +20,20 @@
 
 .cardcustom {
     background-color: #f9f9f9;
+}
+
+.custom-input-judul {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    border-color: #d85448;
+    background-color: #d85448;
+}
+
+.badge-pill {
+    margin-left: 6px;
 }

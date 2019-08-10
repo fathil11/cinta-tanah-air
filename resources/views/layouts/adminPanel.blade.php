@@ -8,7 +8,7 @@
     <meta name="author" content="Creative Tim">
     <title>Admin Panel</title>
     <!-- Favicon -->
-    <link href="{{ asset('img/brand/favicon.png') }}" rel="icon" type="image/png">
+    <link rel="icon" href="{{ asset('img/favicon.png') }}">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
     <!-- Icons -->
@@ -18,6 +18,12 @@
     <link type="text/css" href="{{ asset('css/argon.css?v=1.0.0') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link type="text/css" href="{{ asset('css/admincustom.css') }}" rel="stylesheet">
+    <!-- Jordy CSS -->
+    <link rel="stylesheet" href="{{ asset('css/jodit.min.css') }}">
+    <!-- Custom Jordy CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/customJordy.css') }}" rel="stylesheet">
+    {{-- Data Table CSS--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
 </head>
 
 <body>
@@ -126,31 +132,43 @@
                 <ul class="navbar-nav mb-md-3">
                     <li class="nav-item">
                         <a class="nav-link @if(Request::is('admin/buat-artikel')) {{'active'}} @endif"
-                            href="{{ url('/admin/buat-artikel') }}">
-                            <i class="ni ni-spaceship text-success"></i> Buat Artikel
+                            href="{{ url('admin/buat-artikel') }}">
+                            <i class="ni ni-ruler-pencil text-success"></i> Buat Artikel
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link @if(Request::is('admin/tinjau-artikel')) {{'active'}} @endif"
-                            href="{{ url('/admin/tinjau-artikel') }}">
-                            <i class="ni ni-palette text-info"></i> Tinjau Artikel
+                        <a class="nav-link @if(Request::is('admin/kelola-artikel')) {{'active'}} @endif"
+                            href="{{ url('admin/kelola-artikel') }}">
+                            <i class="ni ni-single-copy-04 text-info"></i> Kelola Artikel
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @if(Request::is('admin/draft-artikel')) {{'active'}} @endif"
-                            href="{{ url('/admin/draft-artikel') }}">
-                            <i class="ni ni-ui-04 text-warning"></i> Draft Artikel
+                            href="{{ url('admin/draft-artikel') }}">
+                            <i class="ni ni-bullet-list-67 text-warning"></i> Draft Artikel
+                            <span class="badge badge-pill badge-warning">2</span>
                         </a>
                     </li>
                 </ul>
 
                 <hr class="my-3">
 
+                <h6 class="navbar-heading text-muted">Manajemen User</h6>
+
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link @if(Request::is('admin/manajemen-penulis')) {{'active'}} @endif"
-                            href="{{ url('/admin/manajemen-penulis') }}">
-                            <i class="ni ni-single-02 text-danger"></i> Manajemen Penulis
+                        <a class="nav-link @if(Request::is('admin/kelola-user')) {{'active'}} @endif"
+                            href="{{ url('/admin/kelola-user') }}">
+                            <i class="fas fa-user-friends text-danger"></i> Kelola User
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link @if(Request::is('admin/buat-user')) {{'active'}} @endif"
+                            href="{{ url('/admin/buat-user') }}">
+                            <i class="ni ni-single-02 text-primary"></i> Buat User
                         </a>
                     </li>
                 </ul>
@@ -188,7 +206,7 @@
                                         src="{{ asset('img/user_picture/team-4-800x800.jpg') }}">
                                 </span>
                                 <div class="media-body ml-2 d-none d-lg-block">
-                                    <span class="mb-0 text-sm  font-weight-bold">Fathil Arham</span>
+                                    <span class="mb-0 text-sm  font-weight-bold">Fathil Arham (Admin)</span>
                                 </div>
                             </div>
                         </a>
@@ -252,6 +270,50 @@
     <!-- Argon JS -->
     <script src="{{ asset('js/argon.js?v=1.0.0') }}"></script>
     <script src="{{ asset('js/customAdmin.js') }}"></script>
+
+    {{-- Jodit WYSIWYG JS --}}
+    <script src="{{ asset('js/jodit.min.js')}}"></script>
+
+    {{-- Data Table JS --}}
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.js')}}"></script>
+
+    {{-- Data Table Bootstrap 4 Integration  JS--}}
+    <script type="text/javascript" src="{{ asset('js/dataTables.bootstrap4.min.js')}}"></script>
+
+    {{-- JS Init --}}
+    <script>
+        // Data Table Init
+        $(document).ready( function () {
+            $('#article_table').DataTable({
+                "info": false,
+                "lengthMenu": [ 5, 10, 15, 20, 25 ],
+                "pageLength": 5,
+                "columnDefs": [{ "orderable": false, "targets": 5 },
+                                 {"searchable": false, "targets": 5}]
+            });
+
+            $('#users_table').DataTable({
+                "info": false,
+                "lengthMenu": [ 5, 10, 15, 20 ],
+                "pageLength": 5,
+                "columnDefs": [{ "orderable": false, "targets": 4 },
+                                 {"searchable": false, "targets": 4}]
+            });
+        } );
+
+        // WYSIWYG Init
+        var editor = new Jodit("#editor", {
+            "spellcheck": false,
+            "buttons": "paragraph,,,,,,,|,fontsize,,brush,|,indent,,align,,ul,ol,|,table,link,|,undo,redo,\n,cut,hr,eraser,copyformat,|,symbol,fullsize,selectall,print"
+        });
+
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            $('.custom-file-label').html(fileName);
+        });
+
+
+    </script>
 </body>
 
 </html>

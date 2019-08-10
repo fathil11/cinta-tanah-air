@@ -6,39 +6,44 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+
+    /**
+     * Show the application home.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function showHome()
     {
-        return view('dashboard.home');
+        return view('home.home');
     }
 
     public function showBerita()
     {
-        $category = "terkini";
-        return view('dashboard.news', ['category' => $category]);
+        return view('home.berita', ['category' => 'Terkini']);
     }
 
     public function showBeritaCategory($category)
     {
-        return view('dashboard.news', ['category' => $category]);
+        return view('home.berita', ['category' => $category]);
     }
 
-    public function openBerita($category, $slug)
+    public function openArticle($slug)
     {
-
+        return view('home.openArtikel');
     }
 
     public function showBertutur()
     {
-
-    }
-
-    public function openBertutur($slug)
-    {
-
+        return view('home.bertutur');
     }
 
     public function showProfil()
     {
-
+        return view('home.profil');
     }
 }

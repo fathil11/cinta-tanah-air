@@ -13,22 +13,19 @@
 
 // Home
 Route::get('/', 'HomeController@showHome');
-Route::get('/beranda', 'HomeController@showHome');
+
+// Berita All
+Route::get('berita', 'HomeController@showBerita');
 
 // Berita Ketegori
-Route::get('/berita', 'HomeController@showBerita');
-
-// Berita Ketegori
-Route::get('/berita/{category}', 'HomeController@showBeritaCategory');
-
-// Detail Berita
-Route::get('/berita/{slug}', 'HomeController@openBerita');
+Route::get('berita/{category}', 'HomeController@showBeritaCategory');
 
 // Bertutur
 Route::get('/bertutur', 'HomeController@showBertutur');
 
-// Detail Bertutur
-Route::get('/bertutur/{slug}', 'HomeController@openBertutur');
+// Open Artikel
+Route::get('lihat-artikel/{slug}', 'HomeController@openArticle');
+
 
 // Profil
 Route::get('/profil', 'HomeController@showProfil');
@@ -51,11 +48,17 @@ Route::group(['prefix' => 'author/berita', 'middleware' => 'auth'], function () 
 });
 
 // Admin
-    Route::get('/admin/welcome', 'AdminController@showWelcome');
-    Route::get('/admin', 'AdminController@showWelcome');
-    Route::get('/admin/statistik', 'AdminController@showStatistic');
-    Route::get('/admin/buat-artikel', 'AdminController@showBuatArtikel');
-    Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::get('/admin/welcome', 'AdminController@showWelcome');
+Route::get('/admin', 'AdminController@showWelcome');
+Route::get('/admin/statistik', 'AdminController@showStatistic');
+Route::get('/admin/buat-artikel', 'AdminController@showBuatArtikel');
+Route::get('/admin/kelola-artikel', 'AdminController@showKelolaArtikel');
+Route::get('/admin/draft-artikel', 'AdminController@showDraftArtikel');
+Route::get('/admin/kelola-user', 'AdminController@showKelolaUser');
+Route::get('/admin/buat-user', 'AdminController@showBuatUser');
+Route::get('/tesdb', 'AdminController@tesdb');
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // Admin Berita
 
     Route::group(['prefix' => 'berita'], function () {
@@ -95,13 +98,8 @@ Route::group(['prefix' => 'author/berita', 'middleware' => 'auth'], function () 
         // Delete
         Route::get('/delete/{id}', 'AdminController@deleteAuthor');
     });
-
 });
 
 
 
-
-
-
-
-
+// Route::get('/home', 'HomeController@index')->name('home');

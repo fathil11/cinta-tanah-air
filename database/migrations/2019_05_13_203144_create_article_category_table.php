@@ -20,11 +20,6 @@ class CreateArticleCategoryTable extends Migration
             $table->string('category');
             $table->timestamps();
         });
-
-        // Schema::table('articles_category', function (Blueprint $table) {
-        //     $table->unsignedBigInteger('article_id');
-        //     $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
-        // });
     }
 
     /**
@@ -34,6 +29,7 @@ class CreateArticleCategoryTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('article_category');
     }
 }

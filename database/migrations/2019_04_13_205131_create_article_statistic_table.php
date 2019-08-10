@@ -20,11 +20,6 @@ class CreateArticleStatisticTable extends Migration
             $table->string('viewer_ip');
             $table->timestamps();
         });
-
-        // Schema::table('articles_statistic', function (Blueprint $table) {
-        //     $table->unsignedBigInteger('article_id');
-        //     $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
-        // });
     }
 
     /**
@@ -34,6 +29,7 @@ class CreateArticleStatisticTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('articles_statistic');
     }
 }

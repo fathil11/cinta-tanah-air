@@ -65,7 +65,7 @@
                             </div>
                             <p class="mt-3 mb-0 text-muted text-sm">
                                 {{-- <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span> --}}
-                                <span class="text-nowrap">6 Artikel Tertunda</span>
+                                <span class="text-nowrap">2 Artikel Tertunda</span>
                             </p>
                         </div>
                     </div>

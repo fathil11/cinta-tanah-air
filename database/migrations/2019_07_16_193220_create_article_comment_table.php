@@ -31,6 +31,7 @@ class CreateArticleCommentTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('article_comment');
     }
 }
