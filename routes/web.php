@@ -53,6 +53,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     // Show Kelola User
     Route::get('kelola-user', 'AdminController@showKelolaUser');
 
+    // Show Edit User
+    Route::get('edit-user/{id}', 'AdminController@showEditUser');
+
+    // Edit User
+    Route::put('edit-user/{id}', 'AdminController@editUser');
+
     // Delete User
     Route::get('delete-user/{id}', 'AdminController@deleteUser');
 
