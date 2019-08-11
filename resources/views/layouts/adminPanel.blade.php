@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/customJordy.css') }}" rel="stylesheet">
     {{-- Data Table CSS--}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
+
 </head>
 
 <body>
@@ -67,7 +68,7 @@
                         <div class=" dropdown-header noti-title">
                             <h6 class="text-overflow m-0">Welcome!</h6>
                         </div>
-                        <a href="{{ url('admin/profil') }}" class="dropdown-item">
+                        <a href="{{ url('admin/edit-user') . '/' . Auth::user()->id}}" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
                             <span>My profile</span>
                         </a>
@@ -213,7 +214,7 @@
                             <div class=" dropdown-header noti-title">
                                 <h6 class="text-overflow m-0">Welcome!</h6>
                             </div>
-                            <a href="{{ url('admin/profil') }}" class="dropdown-item">
+                            <a href="{{ url('admin/edit-user') . '/' . Auth::user()->id}}" class="dropdown-item">
                                 <i class="ni ni-single-02"></i>
                                 <span>Profil</span>
                             </a>
@@ -279,6 +280,7 @@
     {{-- Data Table Bootstrap 4 Integration  JS--}}
     <script type="text/javascript" src="{{ asset('js/dataTables.bootstrap4.min.js')}}"></script>
 
+
     {{-- JS Init --}}
     <script>
         // Data Table Init
@@ -288,7 +290,7 @@
                 "lengthMenu": [ 5, 10, 15, 20, 25 ],
                 "pageLength": 5,
                 "columnDefs": [{ "orderable": false, "targets": 5 },
-                                 {"searchable": false, "targets": 5}]
+                            {"searchable": false, "targets": 5}]
             });
 
             $('#users_table').DataTable({
@@ -296,7 +298,7 @@
                 "lengthMenu": [ 5, 10, 15, 20 ],
                 "pageLength": 5,
                 "columnDefs": [{ "orderable": false, "targets": 4 },
-                                 {"searchable": false, "targets": 4}]
+                            {"searchable": false, "targets": 4}]
             });
         } );
 

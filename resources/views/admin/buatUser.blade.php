@@ -68,6 +68,18 @@
                     </div>
                     <br>
 
+                    {{-- Input Gambar Artikel --}}
+                    <div class="row">
+                        <div class="col-md-5">
+                            <b>Profil Picture User</b>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="pp" lang="en" name="profile_picture">
+                                <label class="custom-file-label" for="customFileLang">Pilih gambar ...</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+
                     {{-- Input Password User --}}
                     <div class="row">
                         <div class="col-md-5">
