@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Traits\UploadTrait;
+use Carbon\Carbon;
+use Image;
+use File;
+use Auth;
 use App\User;
+use App\Article;
 
 class AdminController extends Controller
 {
+    use UploadTrait;
+
     public function showWelcome()
     {
         return view('admin.welcome');
@@ -22,6 +30,51 @@ class AdminController extends Controller
         return view('admin.buatArtikel');
     }
 
+    public function buatArtikel(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|min:5|max:50',
+            'banner_path' => 'bail|image|mimes:jpeg,png,jpg,gif|max:10000',
+            'article_type' => 'required',
+            'cat' => 'nullable',
+            'editor' => 'bail|required|min:30|max:1000'
+        ]);
+
+        $article = new Article();
+        $article->author_id = Auth::user()->id;
+        $article->title = $request->title;
+        $article->slug = str_slug($request->title, '-');
+        $article->type = $request->article_type;
+        $article->article = $request->editor;
+
+        if ($request->has('banner_path')) {
+            // Get image file
+            $image = $request->file('banner_path');
+            // Make a image name based on user name and current timestamp
+            $name = str_slug($request->input('name')) . '_' . time();
+            // Define folder path
+            $folder = 'img/blog/';
+            // Make a file path where image will be stored [ folder path + file name + file extension]
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+            // Upload image
+            if ($this->uploadOne($image, $folder, 'public', $name)) {
+                // Crop
+                $img = Image::make(public_path($filePath));
+                $croppath = public_path($filePath);
+
+                $img->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'));
+
+                $img->save($croppath);
+            }
+
+            $article->banner_path = $name . '.' . $image->getClientOriginalExtension();
+        }
+
+        if ($article->save()) {
+            return redirect(url('admin/kelola-artikel'))->with('status', 'Artikel berhasil dibuat.');
+        }
+    }
+
     public function showKelolaArtikel()
     {
         return view('admin.kelolaArtikel');
@@ -30,6 +83,63 @@ class AdminController extends Controller
     public function showDraftArtikel()
     {
         return view('admin.draftArtikel');
+    }
+
+    /// Buat User
+    public function showBuatUser()
+    {
+        return view('admin.buatUser');
+    }
+
+    public function buatUser(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|min:3|max:50',
+            'email' => 'required|unique:users,email',
+            'moto' => 'max:100',
+            'profile_picture' => 'bail|image|mimes:jpeg,png,jpg,gif|max:10000',
+            'password' => 'sometimes|min:8',
+            'password_confirmation' => 'sometimes|same:password',
+            'role' => 'required',
+        ]);
+
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->moto = $request->moto;
+
+        if ($request->role == 'admin') {
+            $user->role = 1;
+        } elseif ($request->role == 'author') {
+            $user->role = 2;
+        }
+
+        if ($request->has('profile_picture')) {
+            // Get image file
+            $image = $request->file('profile_picture');
+            // Make a image name based on user name and current timestamp
+            $name = str_slug($request->input('name')) . '_' . time();
+            // Define folder path
+            $folder = 'img/user_picture/';
+            // Make a file path where image will be stored [ folder path + file name + file extension]
+            $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+            // Upload image
+            if ($this->uploadOne($image, $folder, 'public', $name)) {
+                // Crop
+                $img = Image::make(public_path($filePath));
+                $croppath = public_path($filePath);
+
+                $img->crop($request->input('w'), $request->input('h'), $request->input('x1'), $request->input('y1'));
+
+                $img->save($croppath);
+            }
+
+            $user->profile_picture = $name . '.' . $image->getClientOriginalExtension();
+        }
+        if ($user->save()) {
+            return redirect(url('admin/kelola-user'))->with('status', 'Berhasil mendaftarkan user');
+        }
     }
 
     public function showKelolaUser()
@@ -46,83 +156,43 @@ class AdminController extends Controller
 
     public function editUser(Request $request, $id)
     {
-        $req_email = User::where('email', $request->email)->first()->email;
-        $cur_email = User::find($id)->email;
+        $user = User::find($id);
 
-        // Cek Email diganti atau tidak
-        if ($req_email != $cur_email) {
-            $check_email = User::where('email', $request->email)->first();
-            if ($check_email) {
-                $request->session()->flash('status', 'Email sudah pernah terdaftar');
-                return redirect(url('admin/edit-user') . '/' . $id);
-            } else {
-                if (strlen($request->password) < 8 && strlen($request->password) > 0) {
-                    $request->session()->flash('status', 'Password minimal memiliki 8 karakter');
-                    return redirect(url('admin/edit-user') . '/' . $id);
-                } else {
-                    if ($request->password != $request->password_confirmation) {
-                        $request->session()->flash('status', 'Pengulangan password tidak sesuai');
-                        return redirect(url('admin/edit-user') . '/' . $id);
-                    } else {
-
-                        $user = User::find($id);
-                        $user->name = $request->name;
-                        $user->email = $request->email;
-
-                        if (strlen($request->password) == 0) {
-                            $user->password = $user->password;
-                        } else {
-                            $user->password = bcrypt($request->password);
-                        }
-
-                        $user->moto = $request->moto;
-
-                        if ($request->role == 'admin') {
-                            $user->role = 1;
-                        } elseif ($request->role == 'author') {
-                            $user->role = 2;
-                        }
-
-                        if ($user->save()) {
-                            $request->session()->flash('status', 'Berhasil mengedit user');
-                            return redirect(url('admin/kelola-user'));
-                        }
-                    }
-                }
-            }
+        if ($request->email == $user->email) {
+            $request->validate([
+                'name' => 'required|min:3|max:50',
+                'moto' => 'max:100',
+                'password' => 'nullable|min:8',
+                'password_confirmation' => 'nullable|same:password',
+                'role' => 'required',
+            ]);
         } else {
-            if (strlen($request->password) < 8 && strlen($request->password) > 0) {
-                $request->session()->flash('status', 'Password minimal memiliki 8 karakter');
-                return redirect(url('admin/edit-user') . '/' . $id);
-            } else {
-                if ($request->password != $request->password_confirmation) {
-                    $request->session()->flash('status', 'Pengulangan password tidak sesuai');
-                    return redirect(url('admin/edit-user') . '/' . $id);
-                } else {
+            $request->validate([
+                'name' => 'required|min:3|max:50',
+                'email' => 'required|unique:users,email',
+                'moto' => 'max:100',
+                'password' => 'nullable|min:8',
+                'password_confirmation' => 'nullable|same:password',
+                'role' => 'required',
+            ]);
+        }
 
-                    $user = User::find($id);
-                    $user->name = $request->name;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->moto = $request->moto;
 
-                    if (strlen($request->password) == 0) {
-                        $user->password = $user->password;
-                    } else {
-                        $user->password = bcrypt($request->password);
-                    }
+        if ($request->has('password')) {
+            $user->password = bcrypt($request->password);
+        }
 
-                    $user->moto = $request->moto;
+        if ($request->role == 'admin') {
+            $user->role = 1;
+        } elseif ($request->role == 'author') {
+            $user->role = 2;
+        }
 
-                    if ($request->role == 'admin') {
-                        $user->role = 1;
-                    } elseif ($request->role == 'author') {
-                        $user->role = 2;
-                    }
-
-                    if ($user->save()) {
-                        $request->session()->flash('status', 'Berhasil mengedit user');
-                        return redirect(url('admin/kelola-user'));
-                    }
-                }
-            }
+        if ($user->save()) {
+            return redirect(url('admin/kelola-user'))->with('status', 'Berhasil di update.');
         }
     }
 
@@ -131,46 +201,6 @@ class AdminController extends Controller
         $user = User::find($id);
         if ($user->delete()) {
             return redirect(url('admin/kelola-user'));
-        }
-    }
-
-    public function showBuatUser()
-    {
-        return view('admin.buatUser');
-    }
-
-    public function buatUser(Request $request)
-    {
-        $check_email = User::where('email', $request->email)->first();
-        // Check Email Exist
-        if ($check_email) {
-            $request->session()->flash('status', 'Email sudah pernah terdaftar');
-            return redirect(url('admin/buat-user'));
-        } else {
-            if (strlen($request->password) < 8) {
-                $request->session()->flash('status', 'Password minimal memiliki 8 karakter');
-                return redirect(url('admin/buat-user'));
-            } else {
-                if ($request->password != $request->password_confirmation) {
-                    $request->session()->flash('status', 'Pengulangan password tidak sesuai');
-                    return redirect(url('admin/buat-user'));
-                } else {
-                    $user = new User();
-                    $user->name = $request->name;
-                    $user->email = $request->email;
-                    $user->password = bcrypt($request->password);
-                    $user->moto = $request->moto;
-                    if ($request->role == 'admin') {
-                        $user->role = 1;
-                    } elseif ($request->role == 'author') {
-                        $user->role = 2;
-                    }
-                    if ($user->save()) {
-                        $request->session()->flash('status', 'Berhasil mendaftarkan user');
-                        return redirect(url('admin/kelola-user'));
-                    }
-                }
-            }
         }
     }
 }

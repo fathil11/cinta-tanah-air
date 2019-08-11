@@ -44,6 +44,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     // Show Buat Artikel
     Route::get('buat-artikel', 'AdminController@showBuatArtikel');
 
+    // Buat Artikel
+    Route::post('buat-artikel', 'AdminController@buatArtikel');
+
     // Show Kelola Artikel
     Route::get('kelola-artikel', 'AdminController@showKelolaArtikel');
 
@@ -66,7 +69,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('buat-user', 'AdminController@showBuatUser');
 
     // Buat User
-    Route::put('buat-user', 'AdminController@buatUser');
+    Route::post('buat-user', 'AdminController@buatUser');
 });
 
 /// Author Route

@@ -24,7 +24,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/customJordy.css') }}" rel="stylesheet">
     {{-- Data Table CSS--}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/dataTables.bootstrap4.min.css') }}">
-
+    {{-- Image Crop CSS--}}
+    <link rel="stylesheet" href="{{ asset('css/imgareaselect-default.css') }}">
 </head>
 
 <body>
@@ -60,7 +61,8 @@
                         aria-expanded="false">
                         <div class="media align-items-center">
                             <span class="avatar avatar-sm rounded-circle">
-                                <img alt="Image placeholder" src="{{ asset('img/user_picture/default_user.jpg') }}">
+                                <img alt="Image placeholder"
+                                    src="{{ asset('img/user_picture/') . '/' . Auth::user()->profile_picture }}">
                             </span>
                         </div>
                     </a>
@@ -86,8 +88,8 @@
                 <div class="navbar-collapse-header d-md-none">
                     <div class="row">
                         <div class="col-6 collapse-brand">
-                            <a href="../index.html">
-                                <img src="{{ asset('img/user_picture/default_user.jpg') }}">
+                            <a href="#">
+                                <img src="{{ asset('img/user_picture/') . '/' . Auth::user()->profile_picture }}">
                             </a>
                         </div>
                         <div class="col-6 collapse-close">
@@ -203,7 +205,8 @@
                             aria-expanded="false">
                             <div class="media align-items-center">
                                 <span class="avatar avatar-sm rounded-circle">
-                                    <img alt="Image placeholder" src="{{ asset('img/user_picture/default_user.jpg') }}">
+                                    <img alt="Image placeholder"
+                                        src="{{ asset('img/user_picture/') . '/' . Auth::user()->profile_picture }}">
                                 </span>
                                 <div class="media-body ml-2 d-none d-lg-block">
                                     <span class="mb-0 text-sm  font-weight-bold">{{ Auth::user()->name }} (Admin)</span>
@@ -280,11 +283,14 @@
     {{-- Data Table Bootstrap 4 Integration  JS--}}
     <script type="text/javascript" src="{{ asset('js/dataTables.bootstrap4.min.js')}}"></script>
 
+    {{-- Image Crop JS --}}
+    <script src="{{ asset('js/jquery.imgareaselect.min.js') }}"></script>
 
     {{-- JS Init --}}
     <script>
         // Data Table Init
         $(document).ready( function () {
+
             $('#article_table').DataTable({
                 "info": false,
                 "lengthMenu": [ 5, 10, 15, 20, 25 ],
@@ -300,7 +306,84 @@
                 "columnDefs": [{ "orderable": false, "targets": 4 },
                             {"searchable": false, "targets": 4}]
             });
-        } );
+
+            $('input[type="file"]').change(function(e){
+                var fileName = e.target.files[0].name;
+                $('.custom-file-label').html(fileName);
+            });
+
+            $(".crop-profile-js").change(function () {
+                readURL(this)
+                $('#previewimage').on('load', function(){
+                    crop1()
+                })
+
+            });
+
+            $(".crop-artikel-js").change(function () {
+                readURL(this)
+                $('#previewimage').on('load', function(){
+                    crop2()
+                })
+
+            });
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        var pic = $('#previewimage');
+                        pic.attr('src', e.target.result);
+                        pic.attr('style', 'display: block;');
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            function crop1(){
+                var image = new Image();
+                image.src = $("#previewimage").attr("src");
+                var real_width = image.naturalWidth;
+                var real_height = image.naturalHeight;
+
+                $('#previewimage').imgAreaSelect({
+                    x1: 0, y1: 0, x2: 500, y2: 500,
+                    aspectRatio: '1:1',
+                    handles: true,
+                    fadeSpeed: 700,
+                    imageHeight: real_height,
+                    imageWidth: real_width,
+                    onSelectChange: getCoordinates // this function below
+                });
+            }
+
+            function crop2(){
+                var image = new Image();
+                image.src = $("#previewimage").attr("src");
+                var real_width = image.naturalWidth;
+                var real_height = image.naturalHeight;
+
+                $('#previewimage').imgAreaSelect({
+                    x1: 0, y1: 0, x2: 500, y2: 250,
+                    aspectRatio: '2:1',
+                    handles: true,
+                    fadeSpeed: 700,
+                    imageHeight: real_height,
+                    imageWidth: real_width,
+                    onSelectChange: getCoordinates // this function below
+                });
+            }
+
+            function getCoordinates(img, selection) {
+                $('input[name="x1"]').val(selection.x1);
+                $('input[name="y1"]').val(selection.y1);
+                $('input[name="w"]').val(selection.width);
+                $('input[name="h"]').val(selection.height);
+            }
+
+        });
 
         // WYSIWYG Init
         var editor = new Jodit("#editor", {
@@ -308,10 +391,7 @@
             "buttons": "paragraph,,,,,,,|,fontsize,,brush,|,indent,,align,,ul,ol,|,table,link,|,undo,redo,\n,cut,hr,eraser,copyformat,|,symbol,fullsize,selectall,print"
         });
 
-        $('input[type="file"]').change(function(e){
-            var fileName = e.target.files[0].name;
-            $('.custom-file-label').html(fileName);
-        });
+
 
 
     </script>

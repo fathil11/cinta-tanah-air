@@ -22,7 +22,7 @@ class CreateArticlesTable extends Migration
             $table->string('slug')->unique()->default('Anonym');
             $table->string('banner_path')->nullable();
             $table->text('article', 5000);
-            $table->integer('status');
+            $table->integer('status')->default(2);
             $table->timestamps();
         });
     }

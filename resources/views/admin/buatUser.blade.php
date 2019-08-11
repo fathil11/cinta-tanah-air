@@ -11,22 +11,27 @@
 
 @section('content')
 <div class="row">
-    @if (Session::has('status'))
+
+    @if ($errors->any())
     <div class="col-md-12">
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <span class="alert-inner--icon"><i class="ni ni-bell-55"></i></span>
-            <span class="alert-inner--text"><strong> Maaf ! </strong> {{ Session::get('status') }}</span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+            <div>
+                @foreach ($errors->all() as $error)
+                <li>
+                    <span class="alert-inner--text">{{ $error }}</span>
+                </li>
+                @endforeach
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
         </div>
     </div>
     @endif
     <div class="col">
         <div class="card shadow cardcustom">
-            <form action="{{ url('admin/buat-user') }}" method="post">
+            <form action="{{ url('admin/buat-user') }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
-                {{ method_field('PUT') }}
                 <div class="container-fluid">
                     <br>
                     <div class="col-md-12">
@@ -71,14 +76,22 @@
                     {{-- Input Gambar Artikel --}}
                     <div class="row">
                         <div class="col-md-5">
-                            <b>Profil Picture User</b>
+                            <b>Gambar Profil User</b>
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="pp" lang="en" name="profile_picture">
+                                <input type="file" class="custom-file-input crop-profile-js" id="customFileLang"
+                                    lang="en" name="profile_picture">
                                 <label class="custom-file-label" for="customFileLang">Pilih gambar ...</label>
                             </div>
+                            <input type="hidden" name="x1" value="" />
+                            <input type="hidden" name="y1" value="" />
+                            <input type="hidden" name="w" value="" />
+                            <input type="hidden" name="h" value="" />
+                            <br><br>
+                            <img width="400" id="previewimage" style="display:none;" />
+
                         </div>
                     </div>
-                    <br><br>
+                    <br>
 
                     {{-- Input Password User --}}
                     <div class="row">
