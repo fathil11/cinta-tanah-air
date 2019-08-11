@@ -50,6 +50,18 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     // Show Kelola Artikel
     Route::get('kelola-artikel', 'AdminController@showKelolaArtikel');
 
+    // Terbitkan Artikel
+    Route::get('terbit-artikel/{id}', 'AdminController@terbitArtikel');
+
+    // Tunda Artikel
+    Route::get('tunda-artikel/{id}', 'AdminController@tundaArtikel');
+
+    // Show Edit Artikel
+    Route::get('edit-artikel/{id}', 'AdminController@showEditArtikel');
+
+    // Edit Artikel
+    Route::post('edit-artikel/{id}', 'AdminController@showEditArtikel');
+
     // Show Draft Artikel
     Route::get('draft-artikel', 'AdminController@showDraftArtikel');
 

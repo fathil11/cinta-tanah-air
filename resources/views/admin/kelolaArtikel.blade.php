@@ -15,103 +15,100 @@
         <div class="card shadow cardcustom">
             <div class="container">
                 <br>
-                <div>
-                    <table id="article_table" class="table align-items-center">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">
-                                    Id
-                                </th>
-                                <th scope="col">
-                                    Judul Artikel
-                                </th>
-                                <th scope="col">
-                                    Tanggal
-                                </th>
-                                <th scope="col">
-                                    Kategori
-                                </th>
-                                <th scope="col">
-                                    Status
-                                </th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody class="list">
-                            <tr>
-                                <td scope="row">
-                                    1
-                                </td>
-                                <td>
-                                    Promosi Asian Games, Bali Gelar Kampung Olahraga
-                                </td>
+                <table id="article_table" class="table align-items-center">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">
+                                Id
+                            </th>
 
-                                <td>
-                                    21 September 2019
-                                </td>
-                                <td class="completion">
-                                    Politik, Budaya, Sosial
-                                </td>
-                                <td class="status">
-                                    <span class="badge badge-dot mr-4">
-                                        <i class="bg-warning"></i> ditarik
-                                    </span>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown">
-                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="#">Terbitkan</a>
-                                            <a class="dropdown-item" href="#">Tarik</a>
-                                            <a class="dropdown-item" href="#">Edit</a>
-                                            <a class="dropdown-item" href="#">Hapus</a>
-                                        </div>
+                            <th scope="col">
+                                Judul Artikel
+                            </th>
+
+                            <th scope="col">
+                                Tipe Artikel
+                            </th>
+
+                            <th scope="col">
+                                Kategori
+                            </th>
+
+                            <th scope="col">
+                                Tanggal
+                            </th>
+
+                            <th scope="col">
+                                Status
+                            </th>
+
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="list">
+                        @foreach ($articles as $article)
+                        <tr>
+                            <td scope="row">
+                                {{ $article->id }}
+                            </td>
+
+                            <td>
+                                {{ $article->title }}
+                            </td>
+
+                            <td>
+                                {{ $article->type }}
+                            </td>
+
+                            <td class="completion">
+                                @php
+                                $temp = array();
+                                foreach($article->category as $cats){
+                                $temp[] = $cats->category;
+                                }
+                                $cat = implode('<br>', $temp)
+                                @endphp
+                                {!! $cat !!}
+                            </td>
+
+                            <td>
+                                {{ $article->created_at }}
+                            </td>
+
+                            <td class="status">
+                                @if ($article->status == 2)
+                                <span class="badge badge-dot mr-4">
+                                    <i class="bg-warning"></i> ditunda
+                                </span>
+                                @elseif($article->status == 1)
+                                <span class="badge badge-dot mr-4">
+                                    <i class="bg-success"></i> terbit
+                                </span>
+                                @endif
+                            </td>
+
+                            <td class="text-right">
+                                <div class="dropdown">
+                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                        <a class="dropdown-item"
+                                            href="{{ url('admin/terbit-artikel') . '/' . $article->id }}">Terbitkan</a>
+                                        <a class="dropdown-item"
+                                            href="{{ url('admin/tunda-artikel') . '/' . $article->id }}">Tunda</a>
+                                        <a class="dropdown-item"
+                                            href="{{ url('admin/edit-artikel') . '/' . $article->id }}">Edit</a>
+                                        <a class="dropdown-item"
+                                            href="{{ url('admin/hapus-artikel') . '/' . $article->id }}">Hapus</a>
                                     </div>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td scope="row">
-                                    2
-                                </td>
-                                <td>
-                                    Indonesia media mogul earmarks $500m for M&A
-                                </td>
-
-                                <td>
-                                    16 Oktober 2019
-                                </td>
-                                <td class="completion">
-                                    Pendidikan, Hukum
-                                </td>
-                                <td class="status">
-                                    <span class="badge badge-dot mr-4">
-                                        <i class="bg-success"></i> terbit
-                                    </span>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown">
-                                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="#">Terbitkan</a>
-                                            <a class="dropdown-item" href="#">Tarik</a>
-                                            <a class="dropdown-item" href="#">Edit</a>
-                                            <a class="dropdown-item" href="#">Hapus</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-
-                        </tbody>
-                    </table>
-                </div>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 <br><br>
             </div>
         </div>

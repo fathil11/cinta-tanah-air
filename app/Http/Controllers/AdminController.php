@@ -8,8 +8,11 @@ use Carbon\Carbon;
 use Image;
 use File;
 use Auth;
+
 use App\User;
 use App\Article;
+use App\ArticleCategory;
+
 
 class AdminController extends Controller
 {
@@ -51,7 +54,7 @@ class AdminController extends Controller
             // Get image file
             $image = $request->file('banner_path');
             // Make a image name based on user name and current timestamp
-            $name = str_slug($request->input('name')) . '_' . time();
+            $name = str_slug($request->input('title')) . '_' . time();
             // Define folder path
             $folder = 'img/blog/';
             // Make a file path where image will be stored [ folder path + file name + file extension]
@@ -70,14 +73,21 @@ class AdminController extends Controller
             $article->banner_path = $name . '.' . $image->getClientOriginalExtension();
         }
 
-        if ($article->save()) {
-            return redirect(url('admin/kelola-artikel'))->with('status', 'Artikel berhasil dibuat.');
+        $article->save();
+        foreach ($request->cat as $ca) {
+            $new_cat = new ArticleCategory();
+            $new_cat->article_id = $article->id;
+            $new_cat->category = $ca;
+            $new_cat->save();
         }
+        return redirect(url('admin/kelola-artikel'))->with('status', 'Artikel berhasil dibuat.');
     }
 
     public function showKelolaArtikel()
     {
-        return view('admin.kelolaArtikel');
+        $articles = Article::all();
+
+        return view('admin.kelolaArtikel', ['articles' => $articles]);
     }
 
     public function showDraftArtikel()
@@ -85,6 +95,25 @@ class AdminController extends Controller
         return view('admin.draftArtikel');
     }
 
+    // Terbitkan Artikel
+    public function terbitArtikel($id)
+    {
+        $article = Article::find($id);
+        $article->status = 1;
+        if ($article->save()) {
+            return redirect(url('admin/kelola-artikel'))->with('status', 'Artikel berhasil diterbitkan');
+        }
+    }
+
+    // Tunda Artikel
+    public function tundaArtikel($id)
+    {
+        $article = Article::find($id);
+        $article->status = 2;
+        if ($article->save()) {
+            return redirect(url('admin/kelola-artikel'))->with('status', 'Artikel berhasil ditunda');
+        }
+    }
     /// Buat User
     public function showBuatUser()
     {

@@ -47,7 +47,8 @@
                         aria-expanded="false">
                         <div class="media align-items-center">
                             <span class="avatar avatar-sm rounded-circle">
-                                <img alt="Image placeholder" src="{{ asset(auth()->user()->profile_picture) }}">
+                                <img alt="Image placeholder"
+                                    src="{{ asset('img/user_picture/') . '/' . Auth::user()->profile_picture }}">
                             </span>
                         </div>
                     </a>
@@ -74,7 +75,7 @@
                     <div class="row">
                         <div class="col-6 collapse-brand">
                             <a href="../index.html">
-                                <img src="{{ asset(auth()->user()->profile_picture) }}">
+                                <img src="{{ asset('img/user_picture/') . '/' . Auth::user()->profile_picture }}">
                             </a>
                         </div>
                         <div class="col-6 collapse-close">
@@ -149,7 +150,8 @@
                             aria-expanded="false">
                             <div class="media align-items-center">
                                 <span class="avatar avatar-sm rounded-circle">
-                                    <img alt="Image placeholder" src="{{ asset(auth()->user()->profile_picture) }}">
+                                    <img alt="Image placeholder"
+                                        src="{{ asset('img/user_picture/') . '/' . Auth::user()->profile_picture }}">
                                 </span>
                                 <div class="media-body ml-2 d-none d-lg-block">
                                     <span class="mb-0 text-sm  font-weight-bold">{{ Auth::user()->name }}

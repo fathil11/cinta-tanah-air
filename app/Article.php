@@ -3,7 +3,7 @@
 namespace App;
 
 use App\User as User;
-use App\ArticleCategory as ArticleCategory;
+use App\ArticleCategory;
 use App\ArticleStatistic as ArticleStatistic;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,12 +18,12 @@ class Article extends Model
 
     public function statistic()
     {
-        $this->hasMany('ArticleStatistic', 'article_id');
+        $this->hasMany('App\ArticleStatistic', 'article_id');
     }
 
     public function category()
     {
-        $this->hasMany('ArticleCategory', 'article_id');
+        return $this->hasMany('App\ArticleCategory', 'article_id');
     }
 
     public function comment()
