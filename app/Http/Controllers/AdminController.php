@@ -49,6 +49,7 @@ class AdminController extends Controller
         $article->slug = str_slug($request->title, '-');
         $article->type = $request->article_type;
         $article->article = $request->editor;
+        $article->status = 1;
 
         if ($request->has('banner_path')) {
             // Get image file
@@ -74,11 +75,13 @@ class AdminController extends Controller
         }
 
         $article->save();
-        foreach ($request->cat as $ca) {
-            $new_cat = new ArticleCategory();
-            $new_cat->article_id = $article->id;
-            $new_cat->category = $ca;
-            $new_cat->save();
+        if ($request->has('cat')) {
+            foreach ($request->cat as $ca) {
+                $new_cat = new ArticleCategory();
+                $new_cat->article_id = $article->id;
+                $new_cat->category = $ca;
+                $new_cat->save();
+            }
         }
         return redirect(url('admin/kelola-artikel'))->with('status', 'Artikel berhasil dibuat.');
     }

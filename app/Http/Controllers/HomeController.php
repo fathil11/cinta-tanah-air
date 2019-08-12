@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Builder;
 
 use App\Article;
 use App\ArticleCategory;
-use Html2Text\Html2Text;
 
 class HomeController extends Controller
 {
@@ -26,9 +25,6 @@ class HomeController extends Controller
      */
     public function showHome()
     {
-        $article = Article::find(1);
-        $tny_art = new Html2Text($article->article);
-        dd($tny_art);
         return view('home.home');
     }
 
@@ -43,11 +39,19 @@ class HomeController extends Controller
         return $cat_stat;
     }
 
+    public function artStat()
+    {
+        $articles = Article::where('status', 1)->whereDate('created_at', date("Y-m-d"))->take(2)->get();
+        return $articles;
+    }
+
     public function showBerita()
     {
-        $articles = Article::where([['type', 'berita'], ['status', 1]])->paginate(1);
+        $articles = Article::where([['type', 'berita'], ['status', 1]])->paginate(5);
         $cat_stat = $this->catStat();
-        return view('home.berita', ['category' => 'Terkini', 'cat_stat' => $cat_stat, 'articles' => $articles]);
+        $art_stat = $this->artStat();
+
+        return view('home.berita', ['category' => 'Terkini', 'cat_stat' => $cat_stat, 'art_stat' => $art_stat, 'articles' => $articles]);
     }
 
     public function showBeritaCategory($category)
@@ -55,22 +59,29 @@ class HomeController extends Controller
 
         $articles = Article::where([['type', 'berita'], ['status', 1]])->whereHas('category', function (Builder $query) use ($category) {
             $query->where('category', $category);
-        })->paginate(1);
+        })->paginate(5);
         $cat_stat = $this->catStat();
-        return view('home.berita', ['category' => $category, 'cat_stat' => $cat_stat, 'articles' => $articles]);
+
+        $art_stat = $this->artStat();
+        return view('home.berita', ['category' => $category, 'cat_stat' => $cat_stat, 'art_stat' => $art_stat, 'articles' => $articles]);
     }
 
     public function openArticle($slug)
     {
         $article = Article::where('slug', $slug)->first();
         $cat_stat = $this->catStat();
-        return view('home.openArtikel', ['article' => $article, 'cat_stat' => $cat_stat]);
+        $art_stat = $this->artStat();
+        return view('home.openArtikel', ['article' => $article, 'cat_stat' => $cat_stat, 'art_stat' => $art_stat]);
     }
 
     public function showBertutur()
     {
+        $articles = Article::where([['type', 'bertutur'], ['status', 1]])->paginate(5);
+        // dd($articles);
         $cat_stat = $this->catStat();
-        return view('home.bertutur');
+        $art_stat = $this->artStat();
+
+        return view('home.bertutur', ['category' => 'Terkini', 'cat_stat' => $cat_stat, 'art_stat' => $art_stat, 'articles' => $articles]);
     }
 
     public function showProfil()

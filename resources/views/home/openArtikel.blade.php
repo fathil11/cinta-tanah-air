@@ -20,15 +20,15 @@ Cinta Tanah Air
                     <div class="blog_details">
                         <h2>{{ $article->title }}</h2>
                         <ul class="blog-info-link mt-3 mb-4">
-                            <li><a href="#"><i class="far fa-user"></i>
-                                    @php
-                                    $temp = array();
-                                    foreach($article->category as $cats){
-                                    $temp[] = $cats->category;
-                                    }
-                                    $cat = implode(',', $temp)
-                                    @endphp
-                                    {{ $cat }}</a></li>
+                            {{-- <li><a href="#"><i class="far fa-user"></i> --}}
+                            @php
+                            $temp = array();
+                            foreach($article->category as $cats){
+                            $temp[] = $cats->category;
+                            }
+                            $cat = implode(',', $temp)
+                            @endphp
+                            {{ $cat }}</a></li>
                             </a></li>
                             {{-- <li><a href="#"><i class="far fa-comments"></i> 03 Comments</a></li> --}}
                         </ul>

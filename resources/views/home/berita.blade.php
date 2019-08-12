@@ -28,6 +28,9 @@ Berita {{ $category }}
         <div class="row">
             <div class="col-lg-8 mb-5 mb-lg-0">
                 <div class="blog_left_sidebar">
+                    @if ($articles->isEmpty())
+                    <h2>Maaf, belum ada berita.</h2>
+                    @endif
                     @foreach ($articles as $article)
                     <article class="blog_item">
                         <div class="blog_item_img">
@@ -45,9 +48,10 @@ Berita {{ $category }}
                             </a>
                             <p>
                                 @php
-                                $tny_art = new HtmlText($article->article);
+                                $tny_art = new HtmlToText($article->article);
+                                $tny_art = $tny_art->getText();
                                 @endphp
-                                {{ substr($tiny_art->getText(), 0, 30) . "..." }}</p>
+                                {{ substr($tny_art, 0, 150) . "..." }}</p>
                             <ul class="blog-info-link">
                                 <li><a href="#"><i class="far fa-user"></i> @php
                                         $temp = array();
