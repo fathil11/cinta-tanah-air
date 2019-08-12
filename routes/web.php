@@ -60,7 +60,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('edit-artikel/{id}', 'AdminController@showEditArtikel');
 
     // Edit Artikel
-    Route::post('edit-artikel/{id}', 'AdminController@showEditArtikel');
+    Route::post('edit-artikel/{id}', 'AdminController@editArtikel');
+
+    // Delete Artikel
+    Route::get('hapus-artikel/{id}', 'AdminController@deleteArtikel');
 
     // Show Draft Artikel
     Route::get('draft-artikel', 'AdminController@showDraftArtikel');

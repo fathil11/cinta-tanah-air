@@ -13,12 +13,12 @@ class Article extends Model
 
     public function author()
     {
-        $this->belongsTo('User', 'author_id');
+        return $this->belongsTo('App\User', 'author_id');
     }
 
     public function statistic()
     {
-        $this->hasMany('App\ArticleStatistic', 'article_id');
+        return $this->hasMany('App\ArticleStatistic', 'article_id');
     }
 
     public function category()
@@ -28,6 +28,6 @@ class Article extends Model
 
     public function comment()
     {
-        $this->hasMany('ArticleComment', 'comment_id');
+        return $this->hasMany('ArticleComment', 'comment_id');
     }
 }

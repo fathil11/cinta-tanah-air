@@ -32,31 +32,31 @@
                 <li>
                     <a href="{{ url('berita/budaya') }}" class="d-flex">
                         <p>Budaya</p>
-                        <p>(37)</p>
+                        <p>({{ $cat_stat['budaya'] }})</p>
                     </a>
                 </li>
                 <li>
                     <a href="{{ url('berita/pemberdayaan') }}" class="d-flex">
                         <p>Pemberdayaan</p>
-                        <p>(10)</p>
+                        <p>({{ $cat_stat['pemberdayaan'] }})</p>
                     </a>
                 </li>
                 <li>
                     <a href="{{ url('berita/pendidikan') }}" class="d-flex">
                         <p>Pendidikan</p>
-                        <p>(3)</p>
+                        <p>{{ $cat_stat['pendidikan'] }}</p>
                     </a>
                 </li>
                 <li>
                     <a href="{{ url('berita/sosial') }}" class="d-flex">
                         <p>Sosial</p>
-                        <p>(11)</p>
+                        <p>({{ $cat_stat['sosial'] }})</p>
                     </a>
                 </li>
                 <li>
                     <a href="{{ url('berita/hukum') }}" class="d-flex">
                         <p>Hukum</p>
-                        <p>(21)</p>
+                        <p>({{ $cat_stat['hukum'] }})</p>
                     </a>
                 </li>
             </ul>

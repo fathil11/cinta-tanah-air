@@ -241,21 +241,20 @@
                 <div class="row align-items-center justify-content-xl-between">
                     <div class="col-xl-6">
                         <div class="copyright text-center text-xl-left text-muted">
-                            &copy; 2019 <a href="http://hmti.dinus.ac.id" class="font-weight-bold ml-1"
-                                target="_blank">HMTI TechDev Team</a>
+                            &copy; 2019 <a href="#" class="font-weight-bold ml-1" target="_blank">Cinta Tanah Air</a>
                         </div>
                     </div>
                     <div class="col-xl-6">
                         <ul class="nav nav-footer justify-content-center justify-content-xl-end">
                             <li class="nav-item">
-                                <a href="http://hmti.dinus.ac.id" class="nav-link" target="_blank">Creative Tim</a>
+                                <a href="#" class="nav-link" target="_blank">Creative Tim</a>
                             </li>
                             <li class="nav-item">
-                                <a href="http://hmti.dinus.ac.id/visi-dan-misi/" class="nav-link" target="_blank">About
+                                <a href="#" class="nav-link" target="_blank">About
                                     Us</a>
                             </li>
                             <li class="nav-item">
-                                <a href="http://hmti.dinus.ac.id" class="nav-link" target="_blank">Web Link</a>
+                                <a href="#" class="nav-link" target="_blank">Web Link</a>
                             </li>
                         </ul>
                     </div>
@@ -295,8 +294,8 @@
                 "info": false,
                 "lengthMenu": [ 5, 10, 15, 20, 25 ],
                 "pageLength": 5,
-                "columnDefs": [{ "orderable": false, "targets": 5 },
-                            {"searchable": false, "targets": 5}]
+                "columnDefs": [{ "orderable": false, "targets": 6 },
+                            {"searchable": false, "targets": 6}]
             });
 
             $('#users_table').DataTable({
@@ -383,13 +382,16 @@
                 $('input[name="h"]').val(selection.height);
             }
 
+            // WYSIWYG Init
+            if($('#editor').length != 0){
+                var editor = new Jodit("#editor", {
+                    "spellcheck": false,
+                    "buttons": "paragraph,,,,,,,|,fontsize,,brush,|,indent,,align,,ul,ol,|,image,video,table,link,|,undo,redo,\n,cut,hr,eraser,copyformat,|,symbol,fullsize,selectall,print"
+                });
+            }
         });
 
-        // WYSIWYG Init
-        var editor = new Jodit("#editor", {
-            "spellcheck": false,
-            "buttons": "paragraph,,,,,,,|,fontsize,,brush,|,indent,,align,,ul,ol,|,table,link,|,undo,redo,\n,cut,hr,eraser,copyformat,|,symbol,fullsize,selectall,print"
-        });
+
 
 
 

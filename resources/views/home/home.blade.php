@@ -8,8 +8,8 @@
             <div class="col-xl-6 col-md-6">
                 <div class="banner_text">
                     <div class="banner_text_iner text-center">
-                        <h2>Cinta <span>Tanah</span> </h2>
-                        <h3>Air</h3>
+                        <h2>Cinta <span>Tanah Air</span> </h2>
+                        <h3>Indonesia</h3>
                         <a href="{{ url('/berita') }}" class="btn_1">Lihat Berita <i class="ti-angle-right"></i> </a>
                     </div>
                 </div>

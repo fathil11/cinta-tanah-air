@@ -51,11 +51,12 @@
                                 </li>
 
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown"
+                                    <a class="nav-link dropdown-toggle" href="{{ url('berita') }}" id="navbarDropdown"
                                         role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         Berita
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ url('/berita') }}">Semua Berita</a>
                                         <a class="dropdown-item" href="{{ url('/berita/budaya') }}">Budaya</a>
                                         <a class="dropdown-item"
                                             href="{{ url('/berita/pemberdayaan') }}">Pemberdayaan</a>

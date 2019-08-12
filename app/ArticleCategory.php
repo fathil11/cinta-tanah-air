@@ -10,8 +10,8 @@ class ArticleCategory extends Model
 {
     protected $table = "article_category";
 
-    public function article(){
-        $this->belongsTo('Articles', 'article_id');
+    public function article()
+    {
+        return $this->belongsTo('App\Article', 'article_id');
     }
-
 }

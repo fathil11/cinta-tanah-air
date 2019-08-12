@@ -12,6 +12,17 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
+        @if (Session::has('status'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <span class="alert-inner--icon"><i class="ni ni-bell-55"></i></span>
+            <span class="alert-inner--text"> {{ Session::get('status') }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+    </div>
+    <div class="col-md-12">
         <div class="card shadow cardcustom">
             <div class="container">
                 <br>
@@ -72,7 +83,7 @@
                             </td>
 
                             <td>
-                                {{ $article->created_at }}
+                                {{ date('d F, Y', strtotime($article->created_at)) }}
                             </td>
 
                             <td class="status">
