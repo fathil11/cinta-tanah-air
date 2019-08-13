@@ -77,7 +77,7 @@ class HomeController extends Controller
     public function showBertutur()
     {
         $articles = Article::where([['type', 'bertutur'], ['status', 1]])->paginate(5);
-        // dd($articles);
+
         $cat_stat = $this->catStat();
         $art_stat = $this->artStat();
 
